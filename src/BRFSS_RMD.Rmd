@@ -1,0 +1,144 @@
+---
+title: "pubh7462_hw2_RMD"
+author: Tsz Fung Wong
+date: January 28,2022
+output: 
+  github_document:
+    toc: true
+    toc_depth: 2
+---
+
+```{r setup, include=FALSE}
+#Load the good stuff
+library(tidyverse)
+library(DataExplorer)
+library(ggplot2)
+library(gt)
+#Working directory for .RMD
+knitr::opts_knit$set(echo = TRUE,
+root.dir = rprojroot::find_rstudio_root_file())
+#Controlling figure output in markdown
+knitr::opts_chunk$set(
+# fig.height = 4
+fig.width = 6,
+# fig.asp = .5,
+out.width = "90%",
+# out.height =
+fig.align = "center",
+cache = FALSE,
+echo = TRUE
+)
+#Set Theme for ggplot2
+theme_set(theme(plot.title = element_text(hjust = 0.5), legend.position = "bottom"))
+#Set Scientific notation output for knitr
+options(scipen = 999)
+options(digits = 4)
+```
+
+# Question 1
+```{r message = FALSE, warning = FALSE}
+brfss = read_csv("./data/brfss_smart_2010.csv")
+brfss_df = as_tibble(brfss) %>%
+  janitor::clean_names() %>% #clean names
+  filter(topic == "Overall Health") %>%
+  select(c("year", "locationabbr", "locationdesc", "response", 
+             "sample_size", "response", "data_value")) %>%
+    mutate(county = stringr::str_remove(locationdesc, str_flatten(str_c(unique(locationabbr), " - "), "|"))) %>%
+  select(-"locationdesc") %>%
+  rename("state" = "locationabbr", 
+           "prop_of_response" = "data_value") 
+brfss_df$response = fct_relevel(factor(brfss_df$response), "Excellent", "Very good", "Good", "Fair")
+brfss_df$county = factor(brfss_df$county)
+brfss_df$state = factor(brfss_df$state)
+
+```
+# Data Description
+The modified BRFSS data consist of `r nrow(brfss_df)` observations described with `r ncol(brfss_df)` variables measuring overall health conditions. The first variable year indicate the time of data collection, ranging from 2002 to 2010. Variable state and county indicate the geographical information of the observation from `r n_distinct(brfss_df$state)` states. Response variable indicate the `r n_distinct(brfss_df$response)` type of response indicating overall health conditions. Sample_size variable indicate the amount of response collected from the specific county for different type of response. Prop_of response indicate the proportion of response accociated with the corresponding type of response. 
+
+
+# Q3.3.1 
+In year 2004, the states that were observed at 6 locations are `r names(which(table(str_sub(unique(brfss$Locationdesc), 1, 2)) == 6))`. 
+
+# Q3.3.2
+```{r message = FALSE, warning = FALSE}
+brfss_plot = brfss_df %>%
+  filter(year >= '2002' & year <= '2010') %>%
+  group_by(year, state) %>%
+  summarise(num_location = n_distinct(county)) %>%
+  mutate(
+    year = year %>%
+           as.character() %>%
+           as.numeric()
+  ) 
+
+brfss_plot %>%
+  ggplot(aes(x = year, y = num_location, colour = fct_reorder2(state, year, num_location))) +
+  geom_line(size = 1, alpha = 0.44) +
+  stat_smooth(alpha = 0.1, 
+              size = 0.2, 
+              method = "loess",
+              span = 2,
+              se = FALSE) +
+  labs(
+    x = "Year",
+    y = "Number of Observed Locations",
+    title = "Number of Observed Locations by State from 2002 - 2010"
+  ) +
+  scale_colour_viridis_d("State") +
+  theme(legend.position = "right", 
+        legend.key.size = unit(0.2, "cm"),
+        legend.key.height = unit(0.2, 'cm'),
+         legend.key.width = unit(0.05, 'cm'))
+
+```
+State NJ has the highest mean number of locations. Most state has low number of locations observed over time, whereas state FL has two peaks only in year 2007 and 2010.
+
+# Q3.3.3
+```{r message = FALSE, warning = FALSE}
+brfss_sum = brfss_df %>%
+  filter(year %in% c("2002", "2010", "2006")) %>%
+  filter(state %in% c("MN")) %>%
+  filter(response %in% c("Excellent", "Good", "Poor")) %>% 
+  group_by(county, response) %>%
+  summarise(
+    across(
+      contains(c("sample", "prop")), 
+      list(mean = mean, sd = sd), na.rm=TRUE, 
+      .names = "{.col}_{.fn}"
+    )
+  )
+
+brfss_sum  %>%
+  gt() %>%
+  tab_header("Summary of Sample Size and Proportion of Response")
+
+```
+More above average overall health people are sampled, and they tends to have higher response rate than the people with poor health condition. As Washington county only has one year of observation, thus standard deviation would be NA. 
+
+# Q3.3.4
+Response distribution of MN
+```{r message = FALSE, warning = FALSE}
+base.gg = brfss_sum %>% 
+  pivot_longer(-c(county, response),
+  names_to = "type",
+  values_to = "value"
+  ) %>%
+  group_by(county, response) %>%
+  ggplot(aes(x = value, colour = response, fill = response)) +
+  geom_histogram(aes(y = stat(density)),
+                 binwidth = 100, colour = "black",
+                 alpha = 0.24, position = "stack") +
+  geom_density(adjust = 2, alpha = 0.44, position = "stack") +
+  labs(
+  x = "Number",
+  y = "Density",
+  title = "Distribution of Response Portion and Sample Size by Response Type"
+  ) +
+  scale_colour_viridis_d("type") +
+  scale_fill_viridis_d("type") + 
+  xlim(0, NA)
+  
+event_type.gg <- base.gg + facet_wrap(~ type, scales = "free")
+event_type.gg
+```
+
