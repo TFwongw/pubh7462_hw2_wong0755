@@ -90,7 +90,7 @@ brfss_sum = brfss_df %>%
   filter(year %in% c("2002", "2010", "2006")) %>%
   filter(state %in% c("MN")) %>%
   filter(response %in% c("Excellent", "Good", "Poor")) %>% 
-  group_by(county, response) %>%
+  group_by(year, response) %>%
   summarise(
     across(
       contains(c("sample", "prop")), 
@@ -104,12 +104,12 @@ brfss_sum  %>%
   tab_header("Summary of Sample Size and Proportion of Response")
 ```
 
-<div id="juusmahwfm" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="uvhjkozlsy" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#juusmahwfm .gt_table {
+#uvhjkozlsy .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -134,7 +134,7 @@ brfss_sum  %>%
   border-left-color: #D3D3D3;
 }
 
-#juusmahwfm .gt_heading {
+#uvhjkozlsy .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -146,7 +146,7 @@ brfss_sum  %>%
   border-right-color: #D3D3D3;
 }
 
-#juusmahwfm .gt_title {
+#uvhjkozlsy .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -156,7 +156,7 @@ brfss_sum  %>%
   border-bottom-width: 0;
 }
 
-#juusmahwfm .gt_subtitle {
+#uvhjkozlsy .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -166,13 +166,13 @@ brfss_sum  %>%
   border-top-width: 0;
 }
 
-#juusmahwfm .gt_bottom_border {
+#uvhjkozlsy .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#juusmahwfm .gt_col_headings {
+#uvhjkozlsy .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -187,7 +187,7 @@ brfss_sum  %>%
   border-right-color: #D3D3D3;
 }
 
-#juusmahwfm .gt_col_heading {
+#uvhjkozlsy .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -207,7 +207,7 @@ brfss_sum  %>%
   overflow-x: hidden;
 }
 
-#juusmahwfm .gt_column_spanner_outer {
+#uvhjkozlsy .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -219,15 +219,15 @@ brfss_sum  %>%
   padding-right: 4px;
 }
 
-#juusmahwfm .gt_column_spanner_outer:first-child {
+#uvhjkozlsy .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#juusmahwfm .gt_column_spanner_outer:last-child {
+#uvhjkozlsy .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#juusmahwfm .gt_column_spanner {
+#uvhjkozlsy .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -239,7 +239,7 @@ brfss_sum  %>%
   width: 100%;
 }
 
-#juusmahwfm .gt_group_heading {
+#uvhjkozlsy .gt_group_heading {
   padding: 8px;
   color: #333333;
   background-color: #FFFFFF;
@@ -261,7 +261,7 @@ brfss_sum  %>%
   vertical-align: middle;
 }
 
-#juusmahwfm .gt_empty_group_heading {
+#uvhjkozlsy .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -276,15 +276,15 @@ brfss_sum  %>%
   vertical-align: middle;
 }
 
-#juusmahwfm .gt_from_md > :first-child {
+#uvhjkozlsy .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#juusmahwfm .gt_from_md > :last-child {
+#uvhjkozlsy .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#juusmahwfm .gt_row {
+#uvhjkozlsy .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -303,7 +303,7 @@ brfss_sum  %>%
   overflow-x: hidden;
 }
 
-#juusmahwfm .gt_stub {
+#uvhjkozlsy .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -315,7 +315,7 @@ brfss_sum  %>%
   padding-left: 12px;
 }
 
-#juusmahwfm .gt_summary_row {
+#uvhjkozlsy .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -325,7 +325,7 @@ brfss_sum  %>%
   padding-right: 5px;
 }
 
-#juusmahwfm .gt_first_summary_row {
+#uvhjkozlsy .gt_first_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -335,7 +335,7 @@ brfss_sum  %>%
   border-top-color: #D3D3D3;
 }
 
-#juusmahwfm .gt_grand_summary_row {
+#uvhjkozlsy .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -345,7 +345,7 @@ brfss_sum  %>%
   padding-right: 5px;
 }
 
-#juusmahwfm .gt_first_grand_summary_row {
+#uvhjkozlsy .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -355,11 +355,11 @@ brfss_sum  %>%
   border-top-color: #D3D3D3;
 }
 
-#juusmahwfm .gt_striped {
+#uvhjkozlsy .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#juusmahwfm .gt_table_body {
+#uvhjkozlsy .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -368,7 +368,7 @@ brfss_sum  %>%
   border-bottom-color: #D3D3D3;
 }
 
-#juusmahwfm .gt_footnotes {
+#uvhjkozlsy .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -382,13 +382,13 @@ brfss_sum  %>%
   border-right-color: #D3D3D3;
 }
 
-#juusmahwfm .gt_footnote {
+#uvhjkozlsy .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding: 4px;
 }
 
-#juusmahwfm .gt_sourcenotes {
+#uvhjkozlsy .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -402,41 +402,41 @@ brfss_sum  %>%
   border-right-color: #D3D3D3;
 }
 
-#juusmahwfm .gt_sourcenote {
+#uvhjkozlsy .gt_sourcenote {
   font-size: 90%;
   padding: 4px;
 }
 
-#juusmahwfm .gt_left {
+#uvhjkozlsy .gt_left {
   text-align: left;
 }
 
-#juusmahwfm .gt_center {
+#uvhjkozlsy .gt_center {
   text-align: center;
 }
 
-#juusmahwfm .gt_right {
+#uvhjkozlsy .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#juusmahwfm .gt_font_normal {
+#uvhjkozlsy .gt_font_normal {
   font-weight: normal;
 }
 
-#juusmahwfm .gt_font_bold {
+#uvhjkozlsy .gt_font_bold {
   font-weight: bold;
 }
 
-#juusmahwfm .gt_font_italic {
+#uvhjkozlsy .gt_font_italic {
   font-style: italic;
 }
 
-#juusmahwfm .gt_super {
+#uvhjkozlsy .gt_super {
   font-size: 65%;
 }
 
-#juusmahwfm .gt_footnote_marks {
+#uvhjkozlsy .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 65%;
@@ -460,95 +460,59 @@ brfss_sum  %>%
   </thead>
   <tbody class="gt_table_body">
     <tr class="gt_group_heading_row">
-      <td colspan="5" class="gt_group_heading">Anoka County</td>
+      <td colspan="5" class="gt_group_heading">2002</td>
     </tr>
     <tr><td class="gt_row gt_center">Excellent</td>
-<td class="gt_row gt_right">70.50</td>
-<td class="gt_row gt_right">24.7487</td>
-<td class="gt_row gt_right">22.300</td>
-<td class="gt_row gt_right">4.8083</td></tr>
+<td class="gt_row gt_right">116.00</td>
+<td class="gt_row gt_right">83.275</td>
+<td class="gt_row gt_right">24.15</td>
+<td class="gt_row gt_right">3.5407</td></tr>
     <tr><td class="gt_row gt_center">Good</td>
-<td class="gt_row gt_right">91.00</td>
-<td class="gt_row gt_right">42.4264</td>
-<td class="gt_row gt_right">25.300</td>
-<td class="gt_row gt_right">4.1012</td></tr>
+<td class="gt_row gt_right">123.75</td>
+<td class="gt_row gt_right">84.263</td>
+<td class="gt_row gt_right">23.95</td>
+<td class="gt_row gt_right">1.0472</td></tr>
     <tr><td class="gt_row gt_center">Poor</td>
-<td class="gt_row gt_right">10.50</td>
-<td class="gt_row gt_right">10.6066</td>
-<td class="gt_row gt_right">2.150</td>
-<td class="gt_row gt_right">1.9092</td></tr>
+<td class="gt_row gt_right">13.75</td>
+<td class="gt_row gt_right">9.570</td>
+<td class="gt_row gt_right">2.40</td>
+<td class="gt_row gt_right">1.1690</td></tr>
     <tr class="gt_group_heading_row">
-      <td colspan="5" class="gt_group_heading">Dakota County</td>
+      <td colspan="5" class="gt_group_heading">2006</td>
     </tr>
     <tr><td class="gt_row gt_center">Excellent</td>
-<td class="gt_row gt_right">91.00</td>
-<td class="gt_row gt_right">39.9500</td>
-<td class="gt_row gt_right">23.300</td>
-<td class="gt_row gt_right">2.2338</td></tr>
+<td class="gt_row gt_right">122.33</td>
+<td class="gt_row gt_right">72.625</td>
+<td class="gt_row gt_right">23.83</td>
+<td class="gt_row gt_right">2.9872</td></tr>
     <tr><td class="gt_row gt_center">Good</td>
-<td class="gt_row gt_right">91.00</td>
-<td class="gt_row gt_right">27.7308</td>
-<td class="gt_row gt_right">23.633</td>
-<td class="gt_row gt_right">2.9484</td></tr>
+<td class="gt_row gt_right">137.33</td>
+<td class="gt_row gt_right">85.816</td>
+<td class="gt_row gt_right">26.37</td>
+<td class="gt_row gt_right">0.4509</td></tr>
     <tr><td class="gt_row gt_center">Poor</td>
-<td class="gt_row gt_right">10.67</td>
-<td class="gt_row gt_right">0.5774</td>
-<td class="gt_row gt_right">2.567</td>
-<td class="gt_row gt_right">0.8021</td></tr>
+<td class="gt_row gt_right">15.00</td>
+<td class="gt_row gt_right">6.928</td>
+<td class="gt_row gt_right">2.30</td>
+<td class="gt_row gt_right">0.9539</td></tr>
     <tr class="gt_group_heading_row">
-      <td colspan="5" class="gt_group_heading">Hennepin County</td>
+      <td colspan="5" class="gt_group_heading">2010</td>
     </tr>
     <tr><td class="gt_row gt_center">Excellent</td>
-<td class="gt_row gt_right">324.67</td>
-<td class="gt_row gt_right">181.1749</td>
-<td class="gt_row gt_right">27.100</td>
-<td class="gt_row gt_right">5.4286</td></tr>
+<td class="gt_row gt_right">203.80</td>
+<td class="gt_row gt_right">190.598</td>
+<td class="gt_row gt_right">25.44</td>
+<td class="gt_row gt_right">5.2776</td></tr>
     <tr><td class="gt_row gt_center">Good</td>
-<td class="gt_row gt_right">344.33</td>
-<td class="gt_row gt_right">179.9287</td>
-<td class="gt_row gt_right">25.767</td>
-<td class="gt_row gt_right">1.3051</td></tr>
+<td class="gt_row gt_right">220.00</td>
+<td class="gt_row gt_right">196.099</td>
+<td class="gt_row gt_right">26.04</td>
+<td class="gt_row gt_right">3.5473</td></tr>
     <tr><td class="gt_row gt_center">Poor</td>
-<td class="gt_row gt_right">40.67</td>
-<td class="gt_row gt_right">28.0416</td>
-<td class="gt_row gt_right">2.133</td>
-<td class="gt_row gt_right">0.5132</td></tr>
-    <tr class="gt_group_heading_row">
-      <td colspan="5" class="gt_group_heading">Ramsey County</td>
-    </tr>
-    <tr><td class="gt_row gt_center">Excellent</td>
-<td class="gt_row gt_right">132.00</td>
-<td class="gt_row gt_right">54.6168</td>
-<td class="gt_row gt_right">24.267</td>
-<td class="gt_row gt_right">4.5709</td></tr>
-    <tr><td class="gt_row gt_center">Good</td>
-<td class="gt_row gt_right">151.33</td>
-<td class="gt_row gt_right">76.0548</td>
-<td class="gt_row gt_right">26.800</td>
-<td class="gt_row gt_right">2.6230</td></tr>
-    <tr><td class="gt_row gt_center">Poor</td>
-<td class="gt_row gt_right">19.00</td>
-<td class="gt_row gt_right">10.5830</td>
-<td class="gt_row gt_right">2.733</td>
-<td class="gt_row gt_right">0.9018</td></tr>
-    <tr class="gt_group_heading_row">
-      <td colspan="5" class="gt_group_heading">Washington County</td>
-    </tr>
-    <tr><td class="gt_row gt_center">Excellent</td>
-<td class="gt_row gt_right">66.00</td>
-<td class="gt_row gt_right">NA</td>
-<td class="gt_row gt_right">26.700</td>
-<td class="gt_row gt_right">NA</td></tr>
-    <tr><td class="gt_row gt_center">Good</td>
-<td class="gt_row gt_right">65.00</td>
-<td class="gt_row gt_right">NA</td>
-<td class="gt_row gt_right">25.900</td>
-<td class="gt_row gt_right">NA</td></tr>
-    <tr><td class="gt_row gt_center">Poor</td>
-<td class="gt_row gt_right">5.00</td>
-<td class="gt_row gt_right">NA</td>
-<td class="gt_row gt_right">1.700</td>
-<td class="gt_row gt_right">NA</td></tr>
+<td class="gt_row gt_right">27.40</td>
+<td class="gt_row gt_right">27.318</td>
+<td class="gt_row gt_right">2.36</td>
+<td class="gt_row gt_right">0.7701</td></tr>
   </tbody>
   
   
@@ -556,37 +520,36 @@ brfss_sum  %>%
 </div>
 
 More above average overall health people are sampled, and they tends to
-have higher response rate than the people with poor health condition. As
-Washington county only has one year of observation, thus standard
-deviation would be NA.
+have higher response rate than the people with poor health condition.
+The number of people sampled increase by year generally but the
+proportion of people respond tends to be consistent throughout the three
+year.
 
 # Q3.3.4
 
-Response distribution of MN
+Response Trend of MN
 
 ``` r
-base.gg = brfss_sum %>% 
-  pivot_longer(-c(county, response),
+brfss_sum %>% 
+  pivot_longer(-c(year, response),
   names_to = "type",
   values_to = "value"
   ) %>%
-  group_by(county, response) %>%
-  ggplot(aes(x = value, colour = response, fill = response)) +
-  geom_histogram(aes(y = stat(density)),
-                 binwidth = 100, colour = "black",
-                 alpha = 0.24, position = "stack") +
-  geom_density(adjust = 2, alpha = 0.44, position = "stack") +
+  ggplot(aes(x = year, y = value, colour = response)) +
+  geom_point(size = 4, alpha = 0.44, shape = 16) +
+  stat_smooth(alpha = 0.1, 
+              size = 1.2, 
+              method = "loess",
+              span = 2,
+              se = FALSE) +
   labs(
-  x = "Number",
-  y = "Density",
-  title = "Distribution of Response Portion and Sample Size by Response Type"
+    x = "Year",
+    y = "Density",
+    title = "Trend of Response Portion and Sample Size by Response Type"
   ) +
-  scale_colour_viridis_d("type") +
-  scale_fill_viridis_d("type") + 
-  xlim(0, NA)
-  
-event_type.gg <- base.gg + facet_wrap(~ type, scales = "free")
-event_type.gg
+  scale_colour_viridis_d("Response") +
+  facet_wrap(~ type, scales = "free", ncol = 2) + 
+  scale_x_continuous(breaks = c(2002, 2006, 2010))
 ```
 
 <img src="BRFSS_RMD_files/figure-gfm/unnamed-chunk-4-1.png" width="90%" style="display: block; margin: auto;" />

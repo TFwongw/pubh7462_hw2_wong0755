@@ -99,7 +99,7 @@ brfss_sum = brfss_df %>%
   filter(year %in% c("2002", "2010", "2006")) %>%
   filter(state %in% c("MN")) %>%
   filter(response %in% c("Excellent", "Good", "Poor")) %>% 
-  group_by(county, response) %>%
+  group_by(year, response) %>%
   summarise(
     across(
       contains(c("sample", "prop")), 
@@ -113,32 +113,31 @@ brfss_sum  %>%
   tab_header("Summary of Sample Size and Proportion of Response")
 
 ```
-More above average overall health people are sampled, and they tends to have higher response rate than the people with poor health condition. As Washington county only has one year of observation, thus standard deviation would be NA. 
+More above average overall health people are sampled, and they tends to have higher response rate than the people with poor health condition. The number of people sampled increase by year generally but the proportion of people respond tends to be consistent throughout the three year.  
 
 # Q3.3.4
-Response distribution of MN
-```{r message = FALSE, warning = FALSE}
-base.gg = brfss_sum %>% 
-  pivot_longer(-c(county, response),
+Response Trend of MN
+```{r message = FALSE, warning = FALSE} 
+brfss_sum %>% 
+  pivot_longer(-c(year, response),
   names_to = "type",
   values_to = "value"
   ) %>%
-  group_by(county, response) %>%
-  ggplot(aes(x = value, colour = response, fill = response)) +
-  geom_histogram(aes(y = stat(density)),
-                 binwidth = 100, colour = "black",
-                 alpha = 0.24, position = "stack") +
-  geom_density(adjust = 2, alpha = 0.44, position = "stack") +
+  ggplot(aes(x = year, y = value, colour = response)) +
+  geom_point(size = 4, alpha = 0.44, shape = 16) +
+  stat_smooth(alpha = 0.1, 
+              size = 1.2, 
+              method = "loess",
+              span = 2,
+              se = FALSE) +
   labs(
-  x = "Number",
-  y = "Density",
-  title = "Distribution of Response Portion and Sample Size by Response Type"
+    x = "Year",
+    y = "Density",
+    title = "Trend of Response Portion and Sample Size by Response Type"
   ) +
-  scale_colour_viridis_d("type") +
-  scale_fill_viridis_d("type") + 
-  xlim(0, NA)
+  scale_colour_viridis_d("Response") +
+  facet_wrap(~ type, scales = "free", ncol = 2) + 
+  scale_x_continuous(breaks = c(2002, 2006, 2010))
   
-event_type.gg <- base.gg + facet_wrap(~ type, scales = "free")
-event_type.gg
 ```
 
